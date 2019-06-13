@@ -1,0 +1,47 @@
+{
+    "type": "panel",
+    "name": "Beehivestat",
+    "id": "grafana-beehivestat-panel",
+    "info": {
+        "description": "BeehiveStat panel for Grafana",
+        "author": {
+            "name": "Kalpak J Palekar",
+            "url": "https://github.com/studiobox/grafana-beehivestat-panel"
+        },
+        "keywords": ["hexbin", "honeycomb", "panel"],
+        "logos": {
+            "small": "img/polystat.svg",
+            "large": "img/polystat.svg"
+        },
+        "links": [{
+            "name": "Project site",
+            "url": "https://github.com/studiobox/grafana-beehivestat-panel"
+        }],
+        "screenshots": [{
+            "name": "Showcase",
+            "path": "screenshots/polystat-composite-example1.png"
+        }, {
+            "name": "Animation",
+            "path": "screenshots/polystat-animate1.gif"
+        }, {
+            "name": "Options",
+            "path": "screenshots/polystat-options-all.png"
+        }, {
+            "name": "Overrides",
+            "path": "screenshots/polystat-overrides-all.png"
+        }, {
+            "name": "Tooltips",
+            "path": "screenshots/polystat-tooltip.png"
+        }, {
+            "name": "Composites",
+            "path": "screenshots/polystat-composites-all.png"
+        }],
+        "version": "1.0.16",
+        "updated": "2019-06-13"
+    },
+
+    "dependencies": {
+        "grafanaVersion": "4.x.x",
+        "plugins": []
+    }
+}
