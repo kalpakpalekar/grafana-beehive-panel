@@ -16,16 +16,16 @@ export class D3Wrapper {
   templateSrv: any;
   calculatedPoints: any;
   hexRadius: number;
-  autoHexRadius : number;
-  autoWidth : number;
+  autoHexRadius: number;
+  autoWidth: number;
   autoHeight: number;
   numColumns: number;
   numRows: number;
   margin: {
     top: number,
-    right : number,
-    bottom : number,
-    left : number,
+    right: number,
+    bottom: number,
+    left: number,
   };
   maxFont = 240;
   purelight: any;
@@ -68,7 +68,7 @@ export class D3Wrapper {
     }
     this.calculateSVGSize();
     this.calculatedPoints = this.generatePoints();
-}
+  }
 
   update(data: any) {
     if (data) {
@@ -163,7 +163,7 @@ export class D3Wrapper {
       xoffset = ((width - renderWidth) / 2) + radiusX;
     }
     // y diameter of hexagon is larger than x diameter
-    let yoffset = ((height - renderHeight) / 2) + (diameterY * .66);
+    let yoffset = ((height - renderHeight) / 2) + (diameterY * .66) + 20;
 
     // Define the div for the tooltip
     // add it to the body and not the container so it can float outside of the panel
@@ -173,7 +173,7 @@ export class D3Wrapper {
       .attr("id", this.d3DivId + "-tooltip")
       .attr("class", "polystat-panel-tooltip")
       .style("opacity", 0);
-    var svg : any = d3.select(this.svgContainer)
+    var svg: any = d3.select(this.svgContainer)
       .attr("width", width + "px")
       .attr("height", height + "px")
       .append("svg")
@@ -199,12 +199,12 @@ export class D3Wrapper {
         .attr("y2", "70%");
       aGradient
         .append("stop")
-          .attr("offset", "0%")
-          .attr("stop-color", colorGradients[i].start);
+        .attr("offset", "0%")
+        .attr("stop-color", colorGradients[i].start);
       aGradient
         .append("stop")
-          .attr("offset", "100%")
-          .attr("stop-color", colorGradients[i].end);
+        .attr("offset", "100%")
+        .attr("stop-color", colorGradients[i].end);
     }
     let okColorStart = new Color(82, 194, 52); // #52c234
     let okColorEnd = okColorStart.Mul(this.purelight, 0.7);
@@ -217,28 +217,28 @@ export class D3Wrapper {
       .attr("y2", "70%");
     okGradient
       .append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", okColorStart.asHex());
+      .attr("offset", "0%")
+      .attr("stop-color", okColorStart.asHex());
     okGradient
       .append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", okColorEnd.asHex());
+      .attr("offset", "100%")
+      .attr("stop-color", okColorEnd.asHex());
 
     // https://uigradients.com/#JuicyOrange
     let warningColorStart = new Color(255, 200, 55); // #FFC837
     let warningColorEnd = warningColorStart.Mul(this.purelight, 0.7);
     let warningGradient = defs.append("linearGradient")
-        .attr("id", this.d3DivId + "linear-gradient-state-warning");
+      .attr("id", this.d3DivId + "linear-gradient-state-warning");
     warningGradient.attr("x1", "30%")
-        .attr("y1", "30%")
-        .attr("x2", "70%")
-        .attr("y2", "70%");
+      .attr("y1", "30%")
+      .attr("x2", "70%")
+      .attr("y2", "70%");
     warningGradient.append("stop")
-          .attr("offset", "0%")
-          .attr("stop-color", warningColorStart.asHex()); // light orange
+      .attr("offset", "0%")
+      .attr("stop-color", warningColorStart.asHex()); // light orange
     warningGradient.append("stop")
-          .attr("offset", "100%")
-          .attr("stop-color", warningColorEnd.asHex()); // dark orange
+      .attr("offset", "100%")
+      .attr("stop-color", warningColorEnd.asHex()); // dark orange
 
     // https://uigradients.com/#YouTube
     let criticalColorStart = new Color(229, 45, 39); // e52d27
@@ -252,12 +252,12 @@ export class D3Wrapper {
       .attr("y2", "70%");
     criticalGradient
       .append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", criticalColorStart.asHex()); // light red
+      .attr("offset", "0%")
+      .attr("stop-color", criticalColorStart.asHex()); // light red
     criticalGradient
       .append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", criticalColorEnd.asHex()); // dark red
+      .attr("offset", "100%")
+      .attr("stop-color", criticalColorEnd.asHex()); // dark red
 
     // https://uigradients.com/#Ash
     let unknownGradient = defs.append("linearGradient")
@@ -269,12 +269,12 @@ export class D3Wrapper {
       .attr("y2", "70%");
     unknownGradient
       .append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", "#73808A"); // light grey
+      .attr("offset", "0%")
+      .attr("stop-color", "#73808A"); // light grey
     unknownGradient
       .append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", "#757F9A"); // dark grey
+      .attr("offset", "100%")
+      .attr("stop-color", "#757F9A"); // dark grey
 
     let customShape = null;
     // this is used to calculate the fontsize
@@ -321,7 +321,7 @@ export class D3Wrapper {
       case "wye":
         customShape = symbol.type(d3.symbolWye);
         break;
-     default:
+      default:
         customShape = ahexbin.hexagon(this.autoHexRadius);
         break;
     }
@@ -381,67 +381,67 @@ export class D3Wrapper {
 
 
     svg.selectAll(".hexagon")
-        .data(ahexbin(this.calculatedPoints))
-        .enter().append("path")
-        .attr("class", "hexagon")
-        .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; })
-        .attr("d", customShape)
-        .attr("stroke", this.opt.polystat.polygonBorderColor)
-        .attr("stroke-width", this.opt.polystat.polygonBorderSize + "px")
-        .style("fill", (_, i) => {
-          if (this.opt.polystat.gradientEnabled) {
-            // safari needs the location.href
-            return "url(" + location.href + "#" + this.d3DivId + "linear-gradient-state-data-" + i + ")";
-          } else {
-            return data[i].color;
+      .data(ahexbin(this.calculatedPoints))
+      .enter().append("path")
+      .attr("class", "hexagon")
+      .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .attr("d", customShape)
+      .attr("stroke", this.opt.polystat.polygonBorderColor)
+      .attr("stroke-width", this.opt.polystat.polygonBorderSize + "px")
+      .style("fill", (_, i) => {
+        if (this.opt.polystat.gradientEnabled) {
+          // safari needs the location.href
+          return "url(" + location.href + "#" + this.d3DivId + "linear-gradient-state-data-" + i + ")";
+        } else {
+          return data[i].color;
+        }
+      })
+      .on("click", (_, i) => {
+        if (data[i].sanitizeURLEnabled === true) {
+          console.log("click detected sanitized enabled" + data[i].sanitizedURL);
+          if (data[i].sanitizedURL.length > 0) {
+            window.location.replace(data[i].sanitizedURL);
           }
-        })
-        .on("click", (_, i) => {
-          if (data[i].sanitizeURLEnabled === true) {
-            console.log("click detected sanitized enabled" + data[i].sanitizedURL);
-            if (data[i].sanitizedURL.length > 0) {
-              window.location.replace(data[i].sanitizedURL);
-            }
-          } else {
-            console.log("click detected sanitized disabled" + data[i].clickThrough);
-            if (data[i].clickThrough.length > 0) {
-              window.location.replace(data[i].clickThrough);
-            }
+        } else {
+          console.log("click detected sanitized disabled" + data[i].clickThrough);
+          if (data[i].clickThrough.length > 0) {
+            window.location.replace(data[i].clickThrough);
           }
-        })
-        .on("mousemove", () => {
-          // use the viewportwidth to prevent the tooltip from going too far right
-          let viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-          // use the mouse position for the entire page
-          var mouse = d3.mouse(d3.select("body").node());
-          var xpos = mouse[0] - 50;
-          // don't allow offscreen tooltip
-          if (xpos < 0) {
-            xpos = 0;
-          }
-          // prevent tooltip from rendering outside of viewport
-          if ((xpos + 200) > viewPortWidth) {
-            xpos = viewPortWidth - 200;
-          }
-          var ypos = mouse[1] + 5;
-          tooltip
-            .style("left", xpos + "px")
-            .style("top", ypos + "px");
-        })
-        .on("mouseover", (d, i) => {
-          tooltip.transition().duration(200).style("opacity", 0.9);
-          tooltip.html(this.opt.tooltipContent[i])
-            .style("font-size", this.opt.tooltipFontSize)
-            .style("font-family", this.opt.tooltipFontType)
-            .style("left", (d.x - 5) + "px")
-            .style("top", (d.y - 5) + "px");
-          })
-        .on("mouseout", () => {
-              tooltip
-                .transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
+        }
+      })
+      .on("mousemove", () => {
+        // use the viewportwidth to prevent the tooltip from going too far right
+        let viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        // use the mouse position for the entire page
+        var mouse = d3.mouse(d3.select("body").node());
+        var xpos = mouse[0] - 50;
+        // don't allow offscreen tooltip
+        if (xpos < 0) {
+          xpos = 0;
+        }
+        // prevent tooltip from rendering outside of viewport
+        if ((xpos + 200) > viewPortWidth) {
+          xpos = viewPortWidth - 200;
+        }
+        var ypos = mouse[1] + 5;
+        tooltip
+          .style("left", xpos + "px")
+          .style("top", ypos + "px");
+      })
+      .on("mouseover", (d, i) => {
+        tooltip.transition().duration(200).style("opacity", 0.9);
+        tooltip.html(this.opt.tooltipContent[i])
+          .style("font-size", this.opt.tooltipFontSize)
+          .style("font-family", this.opt.tooltipFontType)
+          .style("left", (d.x - 5) + "px")
+          .style("top", (d.y - 5) + "px");
+      })
+      .on("mouseout", () => {
+        tooltip
+          .transition()
+          .duration(500)
+          .style("opacity", 0);
+      });
     // now labels
     var textspot = svg.selectAll("text.toplabel")
       .data(ahexbin(this.calculatedPoints));
@@ -478,20 +478,20 @@ export class D3Wrapper {
 
     textspot.enter()
       .append("text")
-      .attr("class", function(_, i) {
+      .attr("class", function (_, i) {
         return "valueLabel" + i;
       })
       .attr("x", function (d) {
         return d.x;
       })
       .attr("y", function (d) {
-        return d.y + (activeLabelFontSize / 2 ) + 20; // offset by fontsize and 10px vertical padding
+        return d.y + (activeLabelFontSize / 2) + 20; // offset by fontsize and 10px vertical padding
       })
       .attr("text-anchor", "middle")
       .attr("font-family", this.opt.polystat.fontType)
       .attr("fill", "black")
       .attr("font-size", dynamicLabelFontSize + "px")
-      .text( (_, i) => {
+      .text((_, i) => {
         // animation/displaymode can modify what is being displayed
         let counter = 0;
         let dataLen = this.data.length;
@@ -513,7 +513,7 @@ export class D3Wrapper {
             counter++;
           }
         }// else {
-          // non-composites use the formatted size of the metric value
+        // non-composites use the formatted size of the metric value
         //  longestDisplayedValueContent = this.formatValueContent(i, counter, this);
         //}
         //console.log("animated: longestDisplayedValueContent: " + longestDisplayedValueContent);
@@ -541,10 +541,10 @@ export class D3Wrapper {
         var valueTextLocation = svg.select("text.valueLabel" + i);
         // use the dynamic size for the value
         valueTextLocation.attr("font-size", dynamicValueFontSize + "px");
-        d3.interval( () => {
+        d3.interval(() => {
           var valueTextLocation = svg.select("text.valueLabel" + i);
           var compositeIndex = i;
-          valueTextLocation.text( () => {
+          valueTextLocation.text(() => {
             // animation/displaymode can modify what is being displayed
             valueTextLocation.attr("font-size", dynamicValueFontSize + "px");
 
@@ -576,7 +576,7 @@ export class D3Wrapper {
   formatValueContent(i, frames, thisRef): string {
     let data = thisRef.data[i];
     // options can specify to not show the value
-    if (typeof(data) !== "undefined") {
+    if (typeof (data) !== "undefined") {
       if (data.hasOwnProperty("showValue")) {
         if (!data.showValue) {
           return "";
@@ -619,7 +619,7 @@ export class D3Wrapper {
         triggeredIndex = frames % len;
         //console.log("triggeredIndex from all mode: " + triggeredIndex);
       } else {
-        if (typeof(data.triggerCache) === "undefined") {
+        if (typeof (data.triggerCache) === "undefined") {
           data.triggerCache = this.buildTriggerCache(data);
         }
         let z = frames % data.triggerCache.length;
@@ -692,9 +692,9 @@ export class D3Wrapper {
   }
 
   // Builds the placeholder polygons needed to represent each metric
-  generatePoints() : any {
+  generatePoints(): any {
     let points = [];
-    if (typeof(this.data) === "undefined") {
+    if (typeof (this.data) === "undefined") {
       return points;
     }
     let maxRowsUsed = 0;
