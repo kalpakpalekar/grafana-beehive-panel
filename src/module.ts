@@ -4,8 +4,8 @@ import { D3PolystatPanelCtrl } from "./ctrl";
 import { loadPluginCss } from "app/plugins/sdk";
 
 loadPluginCss({
-  dark: "plugins/grafana-beehivestat-panel/css/polystat.dark.css",
-  light: "plugins/grafana-beehivestat-panel/css/polystat.light.css"
+  dark: "plugins/grafana-beehive-panel/css/polystat.dark.css",
+  light: "plugins/grafana-beehive-panel/css/polystat.light.css"
 });
 
 export {
